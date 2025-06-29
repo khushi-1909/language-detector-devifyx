@@ -1,0 +1,58 @@
+import os
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+import joblib
+
+def load_training_data(folder='data'):
+    texts = []
+    labels = []
+    for file in os.listdir(folder):
+        if file.endswith('.txt'):
+            lang = file[:-4]  # remove .txt
+            with open(os.path.join(folder, file), 'r', encoding='utf-8') as f:
+                for line in f:
+                    clean=line.strip()
+                    if len(clean)>5:
+                        texts.append(clean)
+                        labels.append(lang)
+    return texts, labels
+
+def get_vectorizer_and_features(texts):
+    vectorizer=CountVectorizer(analyzer='char', ngram_range=(3,3), lowercase=True)
+    X = vectorizer.fit_transform(texts)
+    return vectorizer, X
+
+def train_bayes_model():
+    texts, labels= load_training_data('data')
+    vectorizer, X= get_vectorizer_and_features(texts)
+    model= MultinomialNB()
+    model.fit(X, labels)
+    joblib.dump(model, 'bayes_model.joblib')
+    joblib.dump(vectorizer, 'vectorizer.joblib')
+    print("✅ Model trained and saved as bayes_model.joblib")
+
+def predict_language(sentence):
+    model=joblib.load('bayes_model.joblib')
+    vectorizer=joblib.load('vectorizer.joblib')
+    X = vectorizer.transform([sentence])
+    predicted=model.predict(X)[0]
+    probab=model.predict_proba(X)[0]
+    lang_probab=dict(zip(model.classes_, probab))
+    return predicted, lang_probab
+
+if __name__ == '__main__':
+    train_bayes_model()
+    print("\n🌍 Language Detector Ready (Naive Bayes)! (Type 'exit' to quit)\n")
+    while True:
+        sentence = input('Enter a sentence to detect language: ').strip()
+        if sentence.lower() == 'exit':
+            print('goodbye!')
+            break
+        lang, probab= predict_language(sentence)
+        print(f"\nPredicted language: {lang}")
+        print("Top 3 probabilities:")
+        for k in sorted(probab, key=probab.get, reverse=True)[:3]:
+            print(f"{k}: {probab[k]:.4f}")
+        print()
+
+    
