@@ -233,9 +233,8 @@ Using 40 real-world test sentences—one from each supported language and exclud
 | 提交人 hst由律师代理                                         | zh       | zh        | ✅     |
 
 
-==================================================================================================
-✅ Accuracy: 33/40 = 82.50%
-==================================================================================================
+✅ **Accuracy: 33/40 = 82.50%**
+
 
 These results highlight the model’s robustness across Latin and non-Latin scripts and show that even simple trigram-based methods, when combined smartly, can produce strong multilingual classification.
 
