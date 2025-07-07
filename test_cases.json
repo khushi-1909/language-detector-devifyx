@@ -1,0 +1,162 @@
+[
+  {
+    "input": "كلا تتحدث وكأن الأمر انتهى",
+    "expected_iso": "ar"
+  },
+  {
+    "input": "চনকত হৱ পৰত মল পৰতসথপন কৰৰ আগত নশচত কৰ হ ব",
+    "expected_iso": "as"
+  },
+  {
+    "input": "предполагам",
+    "expected_iso": "bg"
+  },
+  {
+    "input": "লপ সনকত হয়ছ",
+    "expected_iso": "bn"
+  },
+  {
+    "input": "dej mi pokoj",
+    "expected_iso": "cs"
+  },
+  {
+    "input": "så let er det ikke",
+    "expected_iso": "da"
+  },
+  {
+    "input": "gab mir gute rückmeldungen einige funktionswünsche bereinigungen und designverbesserungen und war jemand mit dem ich mich über irc unterhalten konnte",
+    "expected_iso": "de"
+  },
+  {
+    "input": "είσαι χάλια",
+    "expected_iso": "el"
+  },
+  {
+    "input": "protocolo facultativo y enmienda del párrafo 1 del artículo 20",
+    "expected_iso": "es"
+  },
+  {
+    "input": "tässä toinen pitäisitte siitä varmasti",
+    "expected_iso": "fi"
+  },
+  {
+    "input": "le passé et le futur et puis après",
+    "expected_iso": "fr"
+  },
+  {
+    "input": "શરષઠસરકષત ચલ સથ સરળ રબટ૨",
+    "expected_iso": "gu"
+  },
+  {
+    "input": "לעזאזל דוסון",
+    "expected_iso": "he"
+  },
+  {
+    "input": "ashitaka  समरई ironworks पर हमल कर रह ह",
+    "expected_iso": "hi"
+  },
+  {
+    "input": "maga nagyon különös ember",
+    "expected_iso": "hu"
+  },
+  {
+    "input": "waktu menghitung dan terus menghitung",
+    "expected_iso": "id"
+  },
+  {
+    "input": "nomenclatura dei paesi stabilita dal regolamento ce n 18332006 della commissione gu l 354 del 14122006 pag 19",
+    "expected_iso": "it"
+  },
+  {
+    "input": "香港　飛行機のエコノミーで16時間",
+    "expected_iso": "ja"
+  },
+  {
+    "input": "ಪರವನಯಜತ ಸಚತರತ ಗರಫಕಸ ವಯವಸಥಗ ಬದಲಗ ಬರದನನ ಬಳಸ ಇರವ ಆಯಕಗಳ ರಸಟರ ಮತತ ಓಪನ ಜ ಎಲ ಪರಯಗತಮಕ",
+    "expected_iso": "kn"
+  },
+  {
+    "input": "주님의 응벌을 두려워 하는 자들이라",
+    "expected_iso": "ko"
+  },
+  {
+    "input": "ന കണണടതയരനന അങങരനനകകണട എഴതചച ആ മണടൻ പരബനധ",
+    "expected_iso": "ml"
+  },
+  {
+    "input": "सकरल पटट लपव",
+    "expected_iso": "mr"
+  },
+  {
+    "input": "s က s အဖစ ပငပနလပပ",
+    "expected_iso": "my"
+  },
+  {
+    "input": "करम सत कषतरहर",
+    "expected_iso": "ne"
+  },
+  {
+    "input": "een domme duitser beschoot me vanaf zijn tank",
+    "expected_iso": "nl"
+  },
+  {
+    "input": "vi kan ikke dra herfra",
+    "expected_iso": "no"
+  },
+  {
+    "input": "ସଭ ସଚନ ପଠଇବର ଅସମରଥ ସଭ ଅବସଥତ ନହ",
+    "expected_iso": "or"
+  },
+  {
+    "input": "ਈਮਜ dvd ਉਤ ਲਖਆ ਜ ਰਹ ਹ",
+    "expected_iso": "pa"
+  },
+  {
+    "input": "jasne jasne",
+    "expected_iso": "pl"
+  },
+  {
+    "input": "preciso de sua assinatura nisso",
+    "expected_iso": "pt"
+  },
+  {
+    "input": "vor să instrui formatori",
+    "expected_iso": "ro"
+  },
+  {
+    "input": "разговариваете",
+    "expected_iso": "ru"
+  },
+  {
+    "input": "කමර දකකන පනනනව අහමබන වග දරකථන වලන කත කරන අයව",
+    "expected_iso": "si"
+  },
+  {
+    "input": "பன தஙகவடட நடடபபறதத அரபகளடம நஙகள சககரததல மகக பலசலகளன ஒர சமகததரடம அவரகள எதரததப பரட அழககபபடவரகள அவரகளடன நஙகள பரட வணடம அலலத அவரகள மறறலம பணய வணடம அபபத நஙகள வழபபடட நடபபரகளனல அலலஹ உஙகளகக அழகய நறகலயக கடபபன ஆனல இதறக மன நஙகள பரடமல பனனடநதத பல இபபழதம நஙகள பனவஙகவரகளயன அவன உஙகள நவன தரம வதனயக வதன சயவன எனற நபய நர கறம",
+    "expected_iso": "ta"
+  },
+  {
+    "input": "ఇకకడ ఒపపద వరతల",
+    "expected_iso": "te"
+  },
+  {
+    "input": "ไมไดหรอก เพลงอยในหองฉน",
+    "expected_iso": "th"
+  },
+  {
+    "input": "seni tekrar görmek güzeldi ve haberler için sağ ol",
+    "expected_iso": "tr"
+  },
+  {
+    "input": "انہوں نے کہا کہ ہم ایک مجرم قوم کی طرف بھیجے گئے ہیں",
+    "expected_iso": "ur"
+  },
+  {
+    "input": "ở đây chúng tôi không phục vụ họ và ông cũng biết rồi",
+    "expected_iso": "vi"
+  },
+  {
+    "input": "提交人 hst由律师代理",
+    "expected_iso": "zh"
+  }
+]

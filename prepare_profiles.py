@@ -1,81 +1,65 @@
+"""
+Language Data Preparer
+
+This script downloads or loads sentence data for all specified languages,
+filters and cleans it, and saves each as a `.txt` file in the `data/` folder.
+THis is especially useful for collecting parallel or monolingual text for new scripts.
+
+Edit the 'languages' and 'non_latin' sets to cover more languages as needed.
+"""
+
 from datasets import load_dataset, get_dataset_config_names
 import os
 import re
+from lang_utils import clean_text, languages
 
-languages = {
-    "en": "English",
-    "fr": "French",
-    "de": "German",
-    "es": "Spanish",
-    "it": "Italian",
-    "pt": "Portuguese",
-    "ru": "Russian",
-    "zh": "Chinese",
-    "ja": "Japanese",
-    "ko": "Korean",
-    "ar": "Arabic",
-    "hi": "Hindi",
-    "bn": "Bengali",
-    "pa": "Punjabi",
-    "ur": "Urdu",
-    "vi": "Vietnamese",
-    "th": "Thai",
-    "tr": "Turkish",
-    "id": "Indonesian",
-    "fi": "Finnish",
-    "no": "Norwegian",
-    "da": "Danish",
-    "nl": "Dutch",
-    "pl": "Polish",
-    "cs": "Czech",
-    "hu": "Hungarian",
-    "ro": "Romanian",
-    "el": "Greek",
-    "he": "Hebrew",
-    "bg": "Bulgarian",
-}
-
+# Set of Languages that dont use the latin alphabet
 non_latin_langs = {
-    "zh", "ja", "ko", "ar", "hi", "bn", "pa", "ur", "el", "he", "ru", "th", "bg"
+    "zh", "ja", "ko", "ar", "hi", "bn", "pa", "ur", "el", "he", "ru", "th", 
+    "bg", "ta", "te", "kn", "gu", "ml", "mr", "or", "as", "si", "ne", "my"
 }
-
-os.makedirs("data", exist_ok=True)
-
-def clean_text(text):
-    text = re.sub(r"[^\w\s]", "", text)  # remove punctuation
-    return text.strip().lower()
 
 def is_mostly_non_latin(text):
+    """
+    Returns True if less than half the characters are Latin letters.
+    this is useful to filter out the non-Latin-script sentences when preparing profiles.
+    """
     latin_chars = re.findall(r"[a-zA-Z]", text)
     return len(latin_chars) / max(1, len(text)) < 0.5
 
-def fetch_and_save(lang_code, max_samples=1500):
+def get_data(lang_code, max_samples=1500):
+    """
+    Downloads or loads parallel text from HuggingFace Datasets (opus100),
+    cleans and filters sentences, and saves a .txt file for each language.
+
+    Skips English (source language). Gives a warning if not enough samples are found.
+    """
     try:
         if lang_code == "en":
             print("Skipping English (used as source only)")
             return
 
         configs = get_dataset_config_names("opus100")
-        pair1 = f"en-{lang_code}"
-        pair2 = f"{lang_code}-en"
+        config1 = f"en-{lang_code}"
+        config2 = f"{lang_code}-en"
 
-        if pair1 in configs:
-            selected_pair = pair1
+        if config1 in configs:
+            selected_pair = config1
             extract_lang = lang_code
-        elif pair2 in configs:
-            selected_pair = pair2
+        elif config2 in configs:
+            selected_pair = config2
             extract_lang = lang_code
         else:
-            print(f"❌ No config found for {lang_code}")
+            print(f"❌ No data was found for {lang_code} ({languages.get(lang_code, lang_code)})")
             return
 
-        print(f"✅ Using {selected_pair} → extracting '{extract_lang}'")
+        print(f"Fetching {lang_code} ({languages.get(lang_code, lang_code)}) data from {selected_pair}...")
 
         ds = load_dataset("opus100", selected_pair, split="train", streaming=True)
         iterator = iter(ds)
-
         samples = []
-        for _ in range(max_samples * 5):  # oversample buffer
+        #Buffering for extra filtering by trying 5 times more sqamples than needed
+        for _ in range(max_samples * 5):  
             try:
                 item = next(iterator)
                 if "translation" in item and extract_lang in item["translation"]:
@@ -90,6 +74,18 @@ def fetch_and_save(lang_code, max_samples=1500):
                     break
             except StopIteration:
                 break
+        
+        # Saving samples to file
+        os.makedirs("data", exist_ok=True)
+        out_path = os.path.join("data", f"{lang_code}.txt")
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write('\n'.join(samples))
+        print(f"✅ Saved {len(samples)} lines for {lang_code}")
+
+        if len(samples) < max_samples:
+            print(f"⚠️ Only {len(samples)} samples for {lang_code}. You may want to find more data.")
+    except Exception as e:
+        print(f"Error fetching data for {lang_code}: {e}")
 
         with open(f"data/{lang_code}.txt", "w", encoding="utf-8") as f:
             f.write("\n".join(samples))
@@ -100,5 +96,10 @@ def fetch_and_save(lang_code, max_samples=1500):
         print(f"❌ Error for {lang_code}: {e}")
 
 if __name__ == "__main__":
+    print("=" * 55)
+    print("Preparing the raw language data for trigram profile building.")
+    print("You can edit 'languages' or 'non_latin' in this script to add new languages/scripts.")
+    print("=" * 55)
     for code in languages:
-        fetch_and_save(code)
+        get_data(code)
+    print("All data files are ready. \n Next: run build_profiles.py to create language profiles.")

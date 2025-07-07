@@ -1,32 +1,40 @@
+"""
+Trigram Profile Builder
+
+This script reads all .txt language files in 'data/', builds normalized trigram frequency
+profiles for each, and saves them as .json files in the 'profiles/' directory.
+
+Run this script whenever you add new data or new languages!
+"""
+
 import os
 import json
-from collections import Counter
-from pathlib import Path
+from lang_utils import build_trigram_profile, clean_text
 
-def get_trigrams(text):
-    text=text.replace(' ', '')
-    return [text[i:i+3] for i in range(len(text) - 2)]
-
-def build_profile(text, top_k=300):
-    trigrams=get_trigrams(text)
-    counter=Counter(trigrams)
-    total=sum(counter.values())
-    profile={k:v/total for k, v in counter.most_common(top_k)}
-    return profile
-
-def main():
-    data_dir=Path("data")
-    output_dir=Path('profiles')
-    output_dir.mkdir(exist_ok=True)
-
-    for file in data_dir.glob("*.txt"):
-        lang_code = file.stem
-        with file.open(encoding="utf-8") as f:
-            text = f.read().replace("\n", " ")
-        profile = build_profile(text)
-        with open(output_dir / f"{lang_code}.json", "w", encoding="utf-8") as out:
-            json.dump(profile, out, ensure_ascii=False, indent=2)
-        print(f"✅ Profile saved for {lang_code}")
+def build_all_profiles(data_dir="data", output_dir="profiles", top_k=300):
+    """
+    For each .txt file in the data directory:
+    - Read all lines and join them into one text blob
+    - Clean the text
+    - Build trigram profile (which are optionally limited to top_k)
+    - Save as .json in output directory
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    for file in os.listdir(data_dir):
+        if file.endswith(".txt"):
+            lang_code = file[:-4]
+            with open(os.path.join(data_dir, file), encoding="utf-8") as f:
+                text = f.read().replace("\n", " ")
+            text = clean_text(text)
+            profile = build_trigram_profile(text, top_k=top_k)
+            output_path = os.path.join(output_dir, f"{lang_code}.json")
+            with open(output_path, "w", encoding="utf-8") as out:
+                json.dump(profile, out, ensure_ascii=False, indent=2)
+            print(f"✅ Profile saved for {lang_code} ({len(profile)} trigrams)")
 
 if __name__ == "__main__":
-    main()
+    print("=" * 50)
+    print("Building trigram language profiles for all the languages in 'data/'...")
+    print("=" * 50)
+    build_all_profiles()
+    print("All profiles are built! You can now run the detectors.")
