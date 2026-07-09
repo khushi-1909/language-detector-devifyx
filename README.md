@@ -255,4 +255,4 @@ Working on this project taught me a lot about multilingual NLP and real-world la
 ## 👩‍💻 About Me
 Built by Khushi Verma
 LinkedIn: https://www.linkedin.com/in/khushi-verma-1a44a722b/
-For any questions, feel free to email me at ae21b035@smail.iitm.ac.in
+For any questions, feel free to email me at khushi.v1909@gmail.com
