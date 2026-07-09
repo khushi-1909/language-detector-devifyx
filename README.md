@@ -1,7 +1,7 @@
 # 🌍 Language Detector — DevifyX ML Developer Intern Submission
 
 **Author:** Khushi Verma  
-**Email:** ae21b035@smail.iitm.ac.in 
+**Email:** khushi.v1909@gmail.com 
 **Date:** July 2025
 
 ---
